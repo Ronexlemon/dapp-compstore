@@ -1,4 +1,4 @@
-import { BigNumber } from "ethers";
+import { BigNumber } from "bignumber.js";
 
 export interface computerAbi {
   inputs: {
@@ -17,12 +17,7 @@ export interface computerAbi {
   [];
 }
 
-export interface Summary {
-  name: string;
-  address: string;
-  celo: BigNumber;
-  balances: { symbol: StableToken; value?: BigNumber; error?: string }[];
-}
+
 
 export interface Computer {
   owner: string;
@@ -31,8 +26,8 @@ export interface Computer {
   image_url: string;
   computer_specs: string;
   store_location: string;
-  price: BigNumber;
-  sold: BigNumber;
+  price: string;
+  sold: string;
 }
 
 export interface CustomWindow extends Window {

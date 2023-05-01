@@ -1,27 +1,10 @@
-import AddComputerModal from "@/components/AddComputerModal";
-import CheckoutModal from "@/components/CheckoutModal";
-import { MarketplaceContext } from "@/context/marketplaceContext";
+
+import ComputerCard from "@/components/ComputerCard";
+import { useMarketPlace } from "@/context/MarketPlaceContext";
 import { Computer } from "@/typings";
-import { ethers } from "ethers";
-import Image from "next/image";
-import Link from "next/link";
-import { useState, useEffect, useRef, useContext } from "react";
-
-
-
 
 export default function Home() {
-
-const [computers, setComputers] = useState([]);
-const { getProducts } = useContext(MarketplaceContext);
-
-
-useEffect(() => {
-  getProducts().then((data: []) => {
-    setComputers(data);
-    console.log(data);
-  });
-}, [getProducts]);
+  const { computers } = useMarketPlace();
 
   return (
     <div className="bg-white rounded-lg">
@@ -30,28 +13,7 @@ useEffect(() => {
 
         <div className="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
           {computers.map((computer: Computer) => (
-           
-              <div className="group flex flex-col space-y-6" key={computer.index}>
-                <div className="aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-w-7 xl:aspect-h-8">
-                  <Image
-                    width={300}
-                    height={300}
-                    src={computer.image_url}
-                    alt="computer"
-                    className="object-center group-hover:opacity-75 object-cover transform transition-all h-full w-full hover:scale-110 "
-                  />
-                </div>
-                <div className="tooltip " data-tip={computer.computer_title}>
-                  {" "}
-                  <h3 className="mt-4 text-sm text-gray-700">
-                    {computer.computer_title.substring(0, 28)}...
-                  </h3>
-                </div>
-                <div>
-                  <CheckoutModal computer={computer} />
-                </div>
-              </div>
-            
+            <ComputerCard computer={computer} key={computer.index} />
           ))}
         </div>
       </div>
